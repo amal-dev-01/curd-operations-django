@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}add{% endblock title %}
+{% block body %}
+<h2>show list</h2>
+<div>
+<form method="POST" action="">
+    {% csrf_token %}
+    {% if form.username.errors %}
+    <ul>
+        {% for error in form.username.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {{form.as_p}}
+    <input type="submit">
+</form>
+</div>
+<div>
+    <h3>Details</h3>
+    {% if stu %}
+    {% for st in stu %}
+    <table>
+        <tr>
+            <td>{{st.id}}</td>
+            <td>{{st.name}}</td>
+            <td> {{st.email}}</td>
+            <td>{{st.password}}</td>
+            <td>
+                <a href="{% url 'update' st.id %}">Edit</a>
+            </td>
+            <td>
+                <form action="{% url 'delete' st.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type='submit'>Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    
+    
+   
+    
+    {% endfor %}
+
+    
+    {% else %}
+    {% endif %}
+
+</div>
+
+
+{% endblock body %}
